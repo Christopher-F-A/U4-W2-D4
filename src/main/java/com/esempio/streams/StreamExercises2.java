@@ -71,4 +71,15 @@ public class StreamExercises2 {
                 .collect(Collectors.averagingDouble(Order::calculateTotal));
 
         System.out.println("  Media: €" + ex4);
+
+        System.out.println("\n=== Somma importi per categoria ===");
+
+        Map<String, Double> ex5 = products.stream()
+                .collect(Collectors.groupingBy(
+                        Product::getCategory,                        // chiave: categoria
+                        Collectors.summingDouble(Product::getPrice)  // valore: somma prezzi
+                ));
+
+        ex5.forEach((category, total) ->
+                System.out.println("  " + category + " → €" + total));
 } }
